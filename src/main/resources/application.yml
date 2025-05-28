@@ -1,0 +1,62 @@
+spring:
+  application:
+    name: authservice
+  datasource:
+    url: jdbc:postgresql://ep-empty-river-a5jklfjq-pooler.us-east-2.aws.neon.tech/authdb?sslmode=require
+    username: authdb_owner
+    password: npg_zGam80peYKDP
+    driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+  jooq:
+    sql-dialect: POSTGRES
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+# JWT Configuration
+security:
+  jwt:
+    secret: ${JWT_SECRET:zG7gu2L85jLitcQe8K5YMXyJbsY0N1lW}
+    expiration: 86400000 # 24 hours in milliseconds
+    issuer: auth-service
+
+# Resend Email Configuration
+resend:
+  api-key: ${RESEND_API_KEY:re_RJFxTAkg_D8MnZBSXDdJ86hG5d6w6hBrL}
+  from-email: ${RESEND_FROM_EMAIL:onboarding@resend.dev}
+  from-name: ${RESEND_FROM_NAME:Auth Service}
+
+# Token Configuration
+token:
+  verification:
+    expiration: 86400000 # 24 hours in milliseconds
+  password-reset:
+    expiration: 3600000 # 1 hour in milliseconds
+
+# Application URLs
+app:
+  frontend-url: ${APP_FRONTEND_URL:http://localhost:3000}
+
+# Logging
+logging:
+  level:
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    com.acme.app: DEBUG
+    org.jooq: DEBUG
+
+# Swagger/OpenAPI Configuration
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+    config-url: /api/v3/api-docs/swagger-config
+    url: /api/v3/api-docs
+  api-docs:
+    path: /v3/api-docs
+  pathsToMatch: /users/**, /auth/**
