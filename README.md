@@ -78,75 +78,15 @@ src/main/java/com/acme/app/
 
 ### Registration and Account Activation
 
-```mermaid
-sequenceDiagram
-    actor User
-    participant Frontend
-    participant UserController
-    participant UserService
-    participant EmailService
-    participant Database
-    
-    User->>Frontend: Fill registration form
-    Frontend->>UserController: POST /users
-    UserController->>UserService: registerUser()
-    UserService->>Database: Create inactive user
-    UserService->>Database: Create verification token
-    UserService->>EmailService: Send verification email
-    EmailService-->>User: Email with activation link
-    User->>Frontend: Click activation link
-    Frontend->>AuthController: POST /auth/activate
-    AuthController->>AuthService: activateAccount()
-    AuthService->>Database: Verify token
-    AuthService->>Database: Activate user account
-    AuthService-->>Frontend: Account activated
-```
+![image](https://github.com/user-attachments/assets/dbecc27b-ab2d-49d7-a3c9-a5509a26f1a1)
 
 ### Login Flow
 
-```mermaid
-sequenceDiagram
-    actor User
-    participant Frontend
-    participant AuthController
-    participant AuthService
-    participant JwtUtil
-    participant Database
-    
-    User->>Frontend: Enter credentials
-    Frontend->>AuthController: POST /auth/login
-    AuthController->>AuthService: login()
-    AuthService->>Database: Verify credentials
-    AuthService->>JwtUtil: Generate JWT token
-    JwtUtil-->>AuthService: JWT Token
-    AuthService-->>Frontend: Login response with token
-    Frontend->>Frontend: Store token
-```
+![image](https://github.com/user-attachments/assets/a08f03bb-bc53-4fa2-a7a9-5d24afde39d4)
 
 ### Password Reset Flow
 
-```mermaid
-sequenceDiagram
-    actor User
-    participant Frontend
-    participant AuthController
-    participant AuthService
-    participant EmailService
-    participant Database
-    
-    User->>Frontend: Request password reset
-    Frontend->>AuthController: POST /auth/forgot-password
-    AuthController->>AuthService: requestPasswordReset()
-    AuthService->>Database: Create reset token
-    AuthService->>EmailService: Send reset email
-    EmailService-->>User: Email with reset link
-    User->>Frontend: Click reset link and enter new password
-    Frontend->>AuthController: POST /auth/reset-password
-    AuthController->>AuthService: resetPassword()
-    AuthService->>Database: Verify token
-    AuthService->>Database: Update password
-    AuthService-->>Frontend: Password updated
-```
+![image](https://github.com/user-attachments/assets/511e8d4d-258f-43f5-afb6-dbea6e9aec01)
 
 ## API Endpoints
 
